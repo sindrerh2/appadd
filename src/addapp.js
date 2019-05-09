@@ -1,5 +1,6 @@
 var generatePassword = require("password-generator");
 var request = require("request");
+const readInput = require('./readInput')
 
 //appgen id/secret
 const client_id = '161c5195-c597-42af-a089-75588b2aec8c';//(AppID appgen)
@@ -25,10 +26,20 @@ console.log("Your IaCtag is " +  IaC_tag);
 
  async function main(){
 
+  const file = "./applicationsQ.yaml"
+  const input = readInput({ file });
+
+  for (var i = 0, len = input.Applications.length; i < len; i++) {
+
+    const appName = input.Applications[i].name
+    const replyURLs = input.Applications[i].replyURLs
+    const owners = input.Applications[i].owners
+
     let a_token = await getAccessToken(client_id, client_secret);
-    let appl_id = await callGraphAppCreate(a_token, "app14", test_redirects2);
-    for (var i = 0; i < test_owners_pn_2.length; i++)
-      callGraphOwnerAdd(a_token, appl_id, app_uri, test_owners_pn_2[i]);
+    let appl_id = await callGraphAppCreate(a_token, appName, replyURLs);
+    for (var i = 0; i < owners.length; i++)
+      callGraphOwnerAdd(a_token, appl_id, app_uri, owners[i]);
+  }
 
     //1. Claimspolicy
     //2. oppdater app med acceptmappedclaims = true
