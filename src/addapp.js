@@ -22,13 +22,11 @@ let test_redirects2 = ["http://localhost:8080/auth/openid/callback", "http://loc
 let test_redirects = ["http://localhost:8080/auth/openid/callback"];//testredirects
 
 console.log("Your IaCtag is " +  IaC_tag);
-console.log("Your cs is " +  client_secret);
-
 
  async function main(){
 
     let a_token = await getAccessToken(client_id, client_secret);
-    let appl_id = await callGraphAppCreate(a_token, "app12", test_redirects2);
+    let appl_id = await callGraphAppCreate(a_token, "app13", test_redirects2);
     for (var i = 0; i < test_owners_pn_2.length; i++)
       callGraphOwnerAdd(a_token, appl_id, app_uri, test_owners_pn_2[i]);
 
@@ -65,9 +63,6 @@ function getAccessToken(client_id, client_secret){
 }
 
 async function callGraphAppCreate(access_token, display_name, redirect_urls) {
-  console.log(access_token);
-  console.log(display_name);
-  console.log(redirect_urls);
   let object_id = await getAppObjectId(display_name, access_token);
   console.log(object_id);
 
