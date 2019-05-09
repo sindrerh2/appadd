@@ -1,15 +1,14 @@
 var generatePassword = require("password-generator");
 var request = require("request");
+
 const readFile = require('./readFile')
-
-//appgen id/secret
-const client_id = '161c5195-c597-42af-a089-75588b2aec8c';//(AppID appgen)
-
 const dotenv = require('dotenv');
 dotenv.config();
 
-const IaC_tag = "IaC_appreg";
+//appgen id/secret
+const client_id = '161c5195-c597-42af-a089-75588b2aec8c';//(AppID appgen)
 const client_secret = process.env.client_secret;
+const IaC_tag = "IaC_appreg";
 
 //let audience = 'https://graph.windows.net/';//azure ad graph
 let audience = 'https://graph.microsoft.com/';//microsoft graph
