@@ -1,6 +1,6 @@
 var generatePassword = require("password-generator");
 var request = require("request");
-const readInput = require('./readFile')
+const readFile = require('./readFile')
 
 //appgen id/secret
 const client_id = '161c5195-c597-42af-a089-75588b2aec8c';//(AppID appgen)
@@ -26,19 +26,18 @@ console.log("Your IaCtag is " +  IaC_tag);
 
  async function main(){
 
-  const file = "../applicationsQ.yaml"
-  const input = readInput({ file });
+  const file = "./applicationsQ.yaml"
+  const input = readFile({ file });
   let a_token = await getAccessToken(client_id, client_secret);
 
   for (var i = 0, len = input.Applications.length; i < len; i++) {
-
     const appName = input.Applications[i].name
     const replyURLs = input.Applications[i].replyURLs
     const owners = input.Applications[i].owners
 
     let appl_id = await callGraphAppCreate(a_token, appName, replyURLs);
-    for (var i = 0; i < owners.length; i++)
-      callGraphOwnerAdd(a_token, appl_id, app_uri, owners[i]);
+    for (var j = 0; j < owners.length; j++)
+      await callGraphOwnerAdd(a_token, appl_id, app_uri, owners[j]);
   }
 
     //1. Claimspolicy
@@ -91,7 +90,6 @@ async function callGraphAppCreate(access_token, display_name, redirect_urls) {
     graph_url = graph_url + '/' + object_id;
   }
 
-  console.log("passwd " + passwd);
   console.log("callGraphAppCreate " + http_method);
   console.log("callGraphAppCreate " + graph_url);
   
