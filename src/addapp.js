@@ -64,7 +64,9 @@ function getAccessToken(client_id, client_secret){
 }
 
 async function callGraphAppCreate(access_token, display_name, redirect_urls) {
-
+  console.log(access_token);
+  console.log(display_name);
+  console.log(redirect_urls);
   let object_id = await getAppObjectId(display_name, access_token);
   console.log(object_id);
 
