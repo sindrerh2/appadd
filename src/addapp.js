@@ -27,7 +27,7 @@ console.log("Your IaCtag is " +  IaC_tag);
  async function main(){
 
     let a_token = await getAccessToken(client_id, client_secret);
-    let appl_id = await callGraphAppCreate(a_token, "app11", test_redirects2);
+    let appl_id = await callGraphAppCreate(a_token, "app12", test_redirects2);
     for (var i = 0; i < test_owners_pn_2.length; i++)
       callGraphOwnerAdd(a_token, appl_id, app_uri, test_owners_pn_2[i]);
 
