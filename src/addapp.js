@@ -8,19 +8,15 @@ const client_id = '161c5195-c597-42af-a089-75588b2aec8c';//(AppID appgen)
 const dotenv = require('dotenv');
 dotenv.config();
 
-const IaC_tag = process.env.IAC_TAG;
+const IaC_tag = "IaC_appreg";
 const client_secret = process.env.client_secret;
+
+//let audience = 'https://graph.windows.net/';//azure ad graph
+let audience = 'https://graph.microsoft.com/';//microsoft graph
 
 let tenant = '726d6769-7efc-4578-990a-f483ec2ec2d3';
 let app_uri1 = 'beta/applications/32852911-e91f-4f26-aa89-787c41ca6abc'; //graph-kall mot samme app som token ble generert for (OID appgen)
 const app_uri = 'beta/applications'; // graph-kall mot alle apper i tenant 
-let app_uri3 = 'beta/applications/014ab7db-7b0a-4646-ae47-5cef1379e908'; //graph-kall mot annen app enn token er generert for (OID app1)
-let owner_uri = 'beta/applications/134a74a2-4a77-40d3-8f83-db9b81c1e409/owners'; //test
-//let audience = 'https://graph.windows.net/';//azure ad graph
-let audience = 'https://graph.microsoft.com/';//microsoft graph
-let test_owners_pn_2 = ['username2@sindretest.onmicrosoft.com', 'username1@sindretest.onmicrosoft.com'];//testowners
-let test_redirects2 = ["http://localhost:8080/auth/openid/callback", "http://localhost:8080/auth/openid/callback2"];//testredirects2
-let test_redirects = ["http://localhost:8080/auth/openid/callback"];//testredirects
 
 console.log("Your IaCtag is " +  IaC_tag);
 
