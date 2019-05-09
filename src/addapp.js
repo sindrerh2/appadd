@@ -26,8 +26,9 @@ console.log("Your IaCtag is " +  IaC_tag);
 
  async function main(){
 
-  const file = "./applicationsQ.yaml"
+  const file = "../applicationsQ.yaml"
   const input = readInput({ file });
+  let a_token = await getAccessToken(client_id, client_secret);
 
   for (var i = 0, len = input.Applications.length; i < len; i++) {
 
@@ -35,7 +36,6 @@ console.log("Your IaCtag is " +  IaC_tag);
     const replyURLs = input.Applications[i].replyURLs
     const owners = input.Applications[i].owners
 
-    let a_token = await getAccessToken(client_id, client_secret);
     let appl_id = await callGraphAppCreate(a_token, appName, replyURLs);
     for (var i = 0; i < owners.length; i++)
       callGraphOwnerAdd(a_token, appl_id, app_uri, owners[i]);
