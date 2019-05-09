@@ -1,6 +1,6 @@
 var generatePassword = require("password-generator");
 var request = require("request");
-const readInput = require('./readInput')
+const readInput = require('./readFile')
 
 //appgen id/secret
 const client_id = '161c5195-c597-42af-a089-75588b2aec8c';//(AppID appgen)
