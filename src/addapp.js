@@ -22,6 +22,7 @@ let test_redirects2 = ["http://localhost:8080/auth/openid/callback", "http://loc
 let test_redirects = ["http://localhost:8080/auth/openid/callback"];//testredirects
 
 console.log("Your IaCtag is " +  IaC_tag);
+console.log("Your cs is " +  client_secret);
 
 
  async function main(){
