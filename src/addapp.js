@@ -14,14 +14,12 @@ const IaC_tag = "IaC_appreg";
 let audience = 'https://graph.microsoft.com/';//microsoft graph
 
 let tenant = '726d6769-7efc-4578-990a-f483ec2ec2d3';
-let app_uri1 = 'beta/applications/32852911-e91f-4f26-aa89-787c41ca6abc'; //graph-kall mot samme app som token ble generert for (OID appgen)
-const app_uri = 'beta/applications'; // graph-kall mot alle apper i tenant 
-
-console.log("Your IaCtag is " +  IaC_tag);
+const app_uri = 'beta/applications'; // graph-kall mot alle apper i tenant
+const users_uri = 'beta/users'; // graph-kall mot alle users i tenant 
 
  async function main(){
 
-  const file = "./applicationsQ.yaml"
+  const file = "./applicationsQ.yaml";
   const input = readFile({ file });
   let a_token = await getAccessToken(client_id, client_secret);
 
@@ -38,11 +36,6 @@ console.log("Your IaCtag is " +  IaC_tag);
     //1. Claimspolicy
     //2. oppdater app med acceptmappedclaims = true
     //3. Sendt secret til vault
-    //console.log(body.id);
-    //callGraphAppUpdate("app21", a_token, app_uri2, test_owners, 'dc0cf3cc-d210-4ef7-bb27-6b3fd02033d8',callGraphOwnerAdd);
-    
-    //callGraphOwnerAdd(a_token, 'fdae8b02-1f3e-46d9-8425-0881b89257a8', app_uri2);//object_id
-    //callGraphOwnerAdd(a_token, '12375188-7047-49f4-8d09-28cf177894cd', app_uri2);//application_id
 }
 
 function getAccessToken(client_id, client_secret){
@@ -154,7 +147,7 @@ async function callGraphOwnerAdd(access_token, app_id, uri, userprincipalName) {
       headers: {
         Authorization: 'Bearer ' + access_token},
       json: {
-        '@odata.id': 'https://graph.microsoft.com/beta/users/' + user_object_id}
+        '@odata.id': audience + users_uri + '/' + user_object_id}
   };
 
   return new Promise(function(resolve, reject) {
@@ -206,7 +199,7 @@ function getAppObjectId(appName, access_token){
 function getUserObjectId(userPrincipalName, access_token){
 
   let http_method = 'GET';
-  let graph_url = 'https://graph.microsoft.com/beta/users';
+  let graph_url = audience + users_uri;
   
   var options = { method: http_method,
       url: graph_url,
