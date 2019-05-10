@@ -18,12 +18,13 @@ jobs:
 
     steps:
       - checkout
-      - run: npm set prefix=/home/circleci/npm && echo 'export PATH=$HOME/circleci/npm/bin:$PATH' >> /home/circleci/.bashrc
-      - run: npm install --loglevel=warn password-generator
-      - run: npm install --loglevel=warn request
-      - run: npm install --loglevel=warn dotenv
-      - run: npm install --loglevel=warn js-yaml
-      - run: npm install --loglevel=warn fs
+      - run: |
+        npm set prefix=/home/circleci/npm && echo 'export PATH=$HOME/circleci/npm/bin:$PATH' >> /home/circleci/.bashrc
+        npm install --loglevel=warn password-generator
+        npm install --loglevel=warn request
+        npm install --loglevel=warn dotenv
+        npm install --loglevel=warn js-yaml
+        npm install --loglevel=warn fs
 
       # Download and cache dependencies
       - restore_cache:
