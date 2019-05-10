@@ -4,7 +4,7 @@
 #
 version: 2
 jobs:
-  build:
+  applyapp:
     docker:
       # specify the version you desire here
       - image: circleci/node:11.10.0
@@ -47,3 +47,13 @@ jobs:
 
       - run: npm list -g --depth 0
       - run: node src/addapp.js
+
+workflows:
+  version: 2
+
+  validate_and_deploy:
+    jobs:
+      - applyapp:
+          filters:
+            branches:
+              only: master
