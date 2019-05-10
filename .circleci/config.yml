@@ -20,7 +20,7 @@ jobs:
       - checkout
       - run: npm set prefix=/home/circleci/npm && echo 'export PATH=$HOME/circleci/npm/bin:$PATH' >> /home/circleci/.bashrc
       - run:
-        name: npm packages  
+        name: 'npm packages'  
         command: |
           npm install --loglevel=warn password-generator
           npm install --loglevel=warn request
