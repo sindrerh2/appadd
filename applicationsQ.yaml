@@ -1,16 +1,16 @@
 Applications:
-  - name: "app22"
+  - name: "app25"
     replyURLs:
     - 'https://localhost/callback'
     owners:
     - 'username1@sindretest.onmicrosoft.com'
     - 'username2@sindretest.onmicrosoft.com'
-  - name: "app23"
+  - name: "app26"
     replyURLs:
     - 'http://localhost:8080/auth/openid/callback'
     owners:
     - 'username1@sindretest.onmicrosoft.com'
-  - name: "app24"
+  - name: "app27"
     replyURLs:
     - 'http://localhost:8080/auth/openid/callback'
     - 'https://basta.dev-gke.nais.io/auth/openid/callback'
