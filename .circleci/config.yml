@@ -18,9 +18,8 @@ jobs:
 
     steps:
       - checkout
-      - run:
-        command: |
-          npm set prefix=/home/circleci/npm && echo 'export PATH=$HOME/circleci/npm/bin:$PATH' >> /home/circleci/.bashrc
+      - run: npm set prefix=/home/circleci/npm && echo 'export PATH=$HOME/circleci/npm/bin:$PATH' >> /home/circleci/.bashrc
+      - command: |
           npm install --loglevel=warn password-generator
           npm install --loglevel=warn request
           npm install --loglevel=warn dotenv
