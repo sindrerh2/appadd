@@ -6,22 +6,37 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 //appgen id/secret
-const client_id = '161c5195-c597-42af-a089-75588b2aec8c';//(AppID appgen)
-const client_secret = process.env.client_secret;
+const client_id_Q = '161c5195-c597-42af-a089-75588b2aec8c';//(AppID appgen Q)
+const client_secret_Q = process.env.client_secret_Q;
+
+const client_id_P = '161c5195-c597-42af-a089-75588b2aec8c';//(AppID appgen P)
+const client_secret_P = process.env.client_secret_P;
+
 const IaC_tag = "IaC_appreg";
 
 //let audience = 'https://graph.windows.net/';//azure ad graph
-let audience = 'https://graph.microsoft.com/';//microsoft graph
+const audience = 'https://graph.microsoft.com/';//microsoft graph
 
-let tenant = '726d6769-7efc-4578-990a-f483ec2ec2d3';
+const tenantQ = '726d6769-7efc-4578-990a-f483ec2ec2d3';
 const app_uri = 'beta/applications'; // graph-kall mot alle apper i tenant
 const users_uri = 'beta/users'; // graph-kall mot alle users i tenant 
 
- async function main(){
+async function main(){
 
-  const file = "./applicationsQ.yaml";
+  let a_tokenQ = await getAccessToken(client_id_Q, client_secret_Q, tenantQ);
+  const fileQ = "./applicationsQ.yaml";
+  addApplication(fileQ, a_tokenQ);
+
+/*   let a_tokenP = await getAccessToken(client_id_P, client_secret_P, tenantP);
+  const fileP = "./applicationsP.yaml";
+  addApplication(fileP, a_tokenP); */
+}
+
+async function addApplication(appInputFile, a_token){
+
+  const file = appInputFile;
   const input = readFile({ file });
-  let a_token = await getAccessToken(client_id, client_secret);
+  //let a_token = await getAccessToken(client_id, client_secret);
 
   for (var i = 0, len = input.Applications.length; i < len; i++) {
     const appName = input.Applications[i].name
@@ -38,7 +53,7 @@ const users_uri = 'beta/users'; // graph-kall mot alle users i tenant
     //3. Sendt secret til vault
 }
 
-function getAccessToken(client_id, client_secret){
+function getAccessToken(client_id, client_secret, tenant){
   var options = { method: 'POST',
   url: 'https://login.microsoftonline.com/' + tenant + '/oauth2/v2.0/token',
   formData: 
@@ -57,7 +72,7 @@ function getAccessToken(client_id, client_secret){
           resolve(a_token);
         }
       });
-    })  
+    }) 
 }
 
 async function callGraphAppCreate(access_token, display_name, redirect_urls) {
