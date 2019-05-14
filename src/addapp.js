@@ -106,7 +106,6 @@ async function callGraphAppCreate(access_token, display_name, redirect_urls) {
       "tags": [IaC_tag],
     }
   };
-
   return new Promise(function (resolve, reject) {
     request(options, function (error, response, body) {
       console.log("callGraphAppCreate: " + response.statusCode);
@@ -126,7 +125,6 @@ async function callGraphAppCreate(access_token, display_name, redirect_urls) {
 }
 
 async function callGraphOwnerAdd(access_token, app_id, uri, userprincipalName) {
-
   let user_object_id = await getUserObjectId(userprincipalName, access_token);
   let app_url = audience + uri + "/" + app_id + "/owners/$ref";
   console.log(app_url);
@@ -141,7 +139,6 @@ async function callGraphOwnerAdd(access_token, app_id, uri, userprincipalName) {
       '@odata.id': audience + users_uri + '/' + user_object_id
     }
   };
-
   return new Promise(function (resolve, reject) {
     request(options, function (error, response, body) {
       if (error) {
@@ -165,7 +162,6 @@ function getAppObjectId(appName, access_token) {
       Authorization: 'Bearer ' + access_token
     },
   };
-
   return new Promise(function (resolve, reject) {
     request(options, function (error, response, body) {
       console.log(response.statusCode);
@@ -197,7 +193,6 @@ function getUserObjectId(userPrincipalName, access_token) {
       Authorization: 'Bearer ' + access_token
     },
   };
-
   return new Promise(function (resolve, reject) {
     request(options, function (error, response, body) {
       console.log(response.statusCode);
@@ -232,7 +227,6 @@ function getAccessToken(client_id, client_secret, tenant) {
       client_id: client_id
     }
   };
-
   return new Promise(function (resolve, reject) {
     request(options, function (error, response, body) {
       if (error) {
