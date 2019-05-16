@@ -74,6 +74,7 @@ async function callGraphAppCreate(access_token, display_name, redirect_urls) {
       Authorization: 'Bearer ' + access_token
     },
     json: {
+      "acceptMappedClaims": true,
       "displayName": display_name,
       "groupMembershipClaims": "SecurityGroup",
       web: {
