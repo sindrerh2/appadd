@@ -11,7 +11,7 @@ ADD . .
 
 RUN env
 
-RUN npm set prefix=/home/circleci/npm && echo 'export PATH=$HOME/circleci/npm/bin:$PATH' >> /home/circleci/.bashrc
+#RUN npm set prefix=/home/circleci/npm && echo 'export PATH=$HOME/circleci/npm/bin:$PATH' >> /home/circleci/.bashrc
 
 RUN sudo npm install --loglevel=warn password-generator
 RUN sudo npm install --loglevel=warn request
@@ -20,4 +20,4 @@ RUN sudo npm install --loglevel=warn js-yaml
 RUN sudo npm install --loglevel=warn fs
 RUN ls -la src
 
-ENTRYPOINT ["node", "src/addapp.js"]
+ENTRYPOINT ["src/addapp.js"]
