@@ -7,4 +7,4 @@ ADD . .
 
 RUN ls -la src
 
-ENTRYPOINT ["src/addapp.js"]
+ENTRYPOINT ["node", "src/addapp.js"]
