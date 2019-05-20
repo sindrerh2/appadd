@@ -2,7 +2,7 @@ FROM circleci/node:11.10.0
 
 ADD . .
 
-#RUN npm ci
+RUN npm install
 #COPY . .
 
 RUN ls -la src
