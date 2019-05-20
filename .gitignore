@@ -7,4 +7,3 @@ frontend/src/fonts/
 .vscode/
 .env
 dockerbuild.sh
-package-lock.json
