@@ -1,7 +1,10 @@
-FROM node:11-alpine
+FROM circleci/node:11.10.0
 
 ADD . .
 
-RUN npm ci
+#RUN npm ci
+#COPY . .
 
-ENTRYPOINT [".src/appadd.js"]
+RUN ls -la src
+
+ENTRYPOINT ["src/addapp.js"]

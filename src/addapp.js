@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 var generatePassword = require("password-generator");
 var request = require("request");
 
