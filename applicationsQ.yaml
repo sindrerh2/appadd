@@ -16,4 +16,10 @@ Applications:
     - 'https://basta.dev-gke.nais.io/auth/openid/callback'
     owners:
     - 'username1@sindretest.onmicrosoft.com'
+    - name: "app30"
+    replyURLs:
+    - 'http://localhost:8080/auth/openid/callback'
+    - 'https://basta.dev-gke.nais.io/auth/openid/callback'
+    owners:
+    - 'username1@sindretest.onmicrosoft.com'
   
