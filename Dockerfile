@@ -21,6 +21,6 @@ RUN sudo npm install --loglevel=warn fs
 RUN ls -la src
 RUN node --version
 
-RUN node src/addapp.js
+#RUN node src/addapp.js
 
 #ENTRYPOINT ["src/addapp.js"]
