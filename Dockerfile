@@ -19,5 +19,8 @@ RUN sudo npm install --loglevel=warn dotenv
 RUN sudo npm install --loglevel=warn js-yaml
 RUN sudo npm install --loglevel=warn fs
 RUN ls -la src
+RUN node --version
 
-ENTRYPOINT ["src/addapp.js"]
+RUN node src/addapp.js
+
+#ENTRYPOINT ["src/addapp.js"]
