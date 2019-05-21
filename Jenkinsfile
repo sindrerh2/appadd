@@ -14,6 +14,7 @@ pipeline {
         }
         stage('Run') {
             steps {
+                sh 'env'
                 sh 'node src/addapp.js'
             }
         }
