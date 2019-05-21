@@ -49,7 +49,7 @@ async function addApplication(appInputFile, a_token) {
 
 async function callGraphAppCreate(access_token, display_name, redirect_urls) {
   let object_id = await getAppObjectId(display_name, access_token);
-  console.log(object_id);
+  console.log("oid: " + object_id);
 
   var now = new Date();
   var nowPlus2Years = new Date();
@@ -75,7 +75,6 @@ async function callGraphAppCreate(access_token, display_name, redirect_urls) {
       Authorization: 'Bearer ' + access_token
     },
     json: {
-      "acceptMappedClaims": true,
       "displayName": display_name,
       "groupMembershipClaims": "SecurityGroup",
       web: {
@@ -111,6 +110,7 @@ async function callGraphAppCreate(access_token, display_name, redirect_urls) {
   return new Promise(function (resolve, reject) {
     request(options, function (error, response, body) {
       console.log("callGraphAppCreate: " + response.statusCode);
+      console.log("callGraphAppCreate: " + response);
       if (error) {
         reject(error);
       } else {

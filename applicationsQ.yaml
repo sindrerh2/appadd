@@ -10,6 +10,7 @@ Applications:
     - 'http://localhost:8080/auth/openid/callback'
     owners:
     - 'username1@sindretest.onmicrosoft.com'
+    - 'username2@sindretest.onmicrosoft.com'
   - name: "app29"
     replyURLs:
     - 'http://localhost:8080/auth/openid/callback'
