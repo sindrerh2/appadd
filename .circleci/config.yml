@@ -51,9 +51,10 @@ jobs:
 workflows:
   version: 2
 
-  validate_and_deploy:
-    jobs:
-      - applyapp:
-          filters:
-            branches:
-              only: master
+# Kommenter inn hvis circle skal benyttes til kjøring av app (vault må kunne nås fra cicle)
+#  validate_and_deploy:
+#    jobs:
+#      - applyapp:
+#          filters:
+#            branches:
+#              only: master

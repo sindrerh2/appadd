@@ -6,15 +6,8 @@ pipeline {
         https_proxy = 'http://webproxy-internett.nav.no:8088'
     }
     stages {
-        stage('Test') {
+        stage('Run nodeapp') {
             steps {
-                sh 'node --version'
-                sh 'svn --version'
-            }
-        }
-        stage('Run') {
-            steps {
-                sh 'env'
                 sh 'node src/addapp.js'
             }
         }
