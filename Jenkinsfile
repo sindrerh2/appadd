@@ -7,5 +7,10 @@ pipeline {
                 sh 'svn --version'
             }
         }
+        stage('Run') {
+            steps {
+                sh 'node src/addapp.js'
+            }
+        }
     }
 }
