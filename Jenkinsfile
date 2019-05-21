@@ -1,6 +1,9 @@
 pipeline {
     agent { dockerfile true }
     stages {
+        environment {
+            client_secret_Q= credentials('client_secret')
+    }
         stage('Test') {
             steps {
                 sh 'node --version'
