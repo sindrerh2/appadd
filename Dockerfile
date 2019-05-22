@@ -2,6 +2,8 @@ FROM circleci/node:11.10.0
 
 ADD . .
 
+RUN whoami
+
 RUN sudo chown -R $(whoami) /node_modules
 
 RUN npm install --loglevel=warn password-generator
