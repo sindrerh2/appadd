@@ -9,7 +9,6 @@ pipeline {
         stage('Run nodeapp') {
             steps {
                 sh 'ls -la'
-                sh 'whoami'
                 sh 'pwd'
                 sh ' node --version'
                 sh 'node src/addapp.js'
