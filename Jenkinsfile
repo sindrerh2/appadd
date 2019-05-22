@@ -10,6 +10,7 @@ pipeline {
             steps {
                 sh 'ls -la'
                 sh 'pwd'
+                sh 'hostname'
                 sh ' node --version'
                 sh 'node src/addapp.js'
             }
