@@ -6,7 +6,7 @@ RUN whoami
 
 RUN ls -la
 
-RUN sudo chown -R $(whoami) /node_modules
+#RUN sudo chown -R $(whoami) /node_modules
 
 RUN npm install --loglevel=warn password-generator
 RUN npm install --loglevel=warn request
