@@ -1,7 +1,5 @@
 const vault = require('node-vault');
 
-process.env.DEBUG = 'node-vault';
-
 module.exports = () => {
     ['VAULT_ADDR', 'VAULT_TOKEN'].forEach(env => {
         if (!process.env[env]) {
