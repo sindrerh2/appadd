@@ -3,6 +3,7 @@ var generatePassword = require("password-generator");
 var request = require("request");
 
 const readFile = require('./readFile')
+const mkVaultClient = require('./vaultClient')
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -18,18 +19,21 @@ const IaC_tag = "IaC_appreg";
 const audience = 'https://graph.microsoft.com/';
 const app_uri = 'beta/applications'; // graph-kall mot alle apper i tenant
 const users_uri = 'beta/users'; // graph-kall mot alle users i tenant 
+const vaultClient = mkVaultClient();
 
 async function main() {
+  
   let a_tokenQ = await getAccessToken(client_id_Q, client_secret_Q, tenantQ);
   const fileQ = "./applicationsQ.yaml";
-  addApplication(fileQ, a_tokenQ);
+
+  addApplication(fileQ, a_tokenQ, "preprod");
 
   /*   let a_tokenP = await getAccessToken(client_id_P, client_secret_P, tenantP);
     const fileP = "./applicationsP.yaml";
     addApplication(fileP, a_tokenP); */
 }
 
-async function addApplication(appInputFile, a_token) {
+async function addApplication(appInputFile, a_token, environment) {
   const file = appInputFile;
   const input = readFile({ file });
 
@@ -38,24 +42,28 @@ async function addApplication(appInputFile, a_token) {
     const replyURLs = input.Applications[i].replyURLs
     const owners = input.Applications[i].owners
 
-    let appl_id = await callGraphAppCreate(a_token, appName, replyURLs);
+    var passwd = generatePassword(30, false);
+    let returnObj  = await callGraphAppCreate(a_token, appName, replyURLs, passwd);
+    let objectId = returnObj;
+    if (returnObj.appId != null) {
+      addAppToVault(environment, appName, returnObj.appId, passwd);
+      objectId = returnObj.id;
+    }   
     for (var j = 0; j < owners.length; j++)
-      await callGraphOwnerAdd(a_token, appl_id, app_uri, owners[j]);
+      await callGraphOwnerAdd(a_token, objectId, app_uri, owners[j]);
   }
+
   //1. Claimspolicy
   //2. oppdater app med acceptmappedclaims = true
-  //3. Sendt secret til vault
 }
 
-async function callGraphAppCreate(access_token, display_name, redirect_urls) {
+async function callGraphAppCreate(access_token, display_name, redirect_urls, passwd) {
   let object_id = await getAppObjectId(display_name, access_token);
   console.log("oid: " + object_id);
 
   var now = new Date();
   var nowPlus2Years = new Date();
   nowPlus2Years.setFullYear(now.getFullYear() + 2);
-
-  var passwd = generatePassword(30, false);
 
   let http_method = 'POST';
   let graph_url = audience + app_uri;
@@ -64,7 +72,6 @@ async function callGraphAppCreate(access_token, display_name, redirect_urls) {
     http_method = 'PATCH';
     graph_url = graph_url + '/' + object_id;
   }
-
   console.log("callGraphAppCreate " + http_method);
   console.log("callGraphAppCreate " + graph_url);
 
@@ -116,7 +123,7 @@ async function callGraphAppCreate(access_token, display_name, redirect_urls) {
       } else {
         if (body != null) {
           //CREATE
-          resolve(body.id);
+          resolve(body);
         } else {
           //UPDATE
           resolve(object_id);
@@ -197,12 +204,11 @@ function getUserObjectId(userPrincipalName, access_token) {
   };
   return new Promise(function (resolve, reject) {
     request(options, function (error, response, body) {
-      console.log(response.statusCode);
+      console.log("getUserObjectId responcecode: " + response.statusCode);
       if (error) {
         reject(error);
       } else {
         if (body != null) {
-          //console.log(body);
           jsonArray = JSON.parse(body).value;
           for (var i = 0; i < jsonArray.length; i++) {
             if (jsonArray[i].userPrincipalName == userPrincipalName) {
@@ -240,6 +246,11 @@ function getAccessToken(client_id, client_secret, tenant) {
       }
     });
   })
+}
+
+function addAppToVault(environment, display_name, clientId, passwd){
+  vaultClient.write('kv/' + environment+ "/" + display_name, { client_id: clientId, client_secret: passwd })
+  .catch((err) => console.error(err.message));
 }
 
 main();
