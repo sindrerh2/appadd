@@ -1,26 +1,9 @@
 Applications:
-  - name: "app28"
-    replyURLs:
-    - 'https://localhost/callback'
-    owners:
-    - 'username1@sindretest.onmicrosoft.com'
-    - 'username2@sindretest.onmicrosoft.com'
-  - name: "app26"
-    replyURLs:
-    - 'http://localhost:8080/auth/openid/callback'
-    owners:
-    - 'username1@sindretest.onmicrosoft.com'
-    - 'username2@sindretest.onmicrosoft.com'
-  - name: "app29"
+  - name: "app30"
+    displayName: "myAppName app63"
+    discoveryURL: "http://localhost:8080/"
     replyURLs:
     - 'http://localhost:8080/auth/openid/callback'
     - 'https://basta.dev-gke.nais.io/auth/openid/callback'
     owners:
     - 'username1@sindretest.onmicrosoft.com'
-  - name: "app42"
-    replyURLs:
-    - 'http://localhost:8080/auth/openid/callback'
-    - 'https://basta.dev-gke.nais.io/auth/openid/callback'
-    owners:
-    - 'username1@sindretest.onmicrosoft.com'
-  
