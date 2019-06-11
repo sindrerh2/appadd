@@ -41,6 +41,7 @@
       "resolved": "https://registry.npmjs.org/aws4/-/aws4-1.8.0.tgz",
       "version": "1.8.0"
     },
+    "base-64": "^0.1.0",
     "bcrypt-pbkdf": {
       "integrity": "sha1-pDAdOJtqQ/m2f/PKEaP2Y342Dp4=",
       "requires": {
@@ -173,6 +174,7 @@
       "resolved": "https://registry.npmjs.org/isstream/-/isstream-0.1.2.tgz",
       "version": "0.1.2"
     },
+    "js-base64": "^2.5.1",
     "js-yaml": "^3.13.1",
     "jsbn": {
       "integrity": "sha1-peZUwuWi3rXyAdls77yoDA7y9RM=",
@@ -309,6 +311,7 @@
       "resolved": "https://registry.npmjs.org/uri-js/-/uri-js-4.2.2.tgz",
       "version": "4.2.2"
     },
+    "utf8": "^3.0.0",
     "uuid": {
       "integrity": "sha512-yXJmeNaw3DnnKAOKJE51sL/ZaYfWJRl1pK9dr19YFCu0ObS231AB1/LbqTKRAQ5kw8A90rA6fr4riOUpTZvQZA==",
       "resolved": "https://registry.npmjs.org/uuid/-/uuid-3.3.2.tgz",

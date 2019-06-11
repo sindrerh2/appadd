@@ -1,6 +1,10 @@
 #!/usr/bin/env node
 var generatePassword = require("password-generator");
 var request = require("request");
+var forge = require("node-forge");
+var certificateGenerator = require("./certificateGenerator.js");
+var rsa = forge.pki.rsa;
+var pki = forge.pki
 
 const readFile = require('./readFile')
 const mkVaultClient = require('./vaultClient')
@@ -26,7 +30,7 @@ async function main() {
   let a_tokenQ = await getAccessToken(client_id_Q, client_secret_Q, tenantQ);
   const fileQ = "./applicationsQ.yaml";
 
-  addApplication(fileQ, a_tokenQ, "preprod");
+  addApplication(fileQ, a_tokenQ, "dev");
 
   /*   let a_tokenP = await getAccessToken(client_id_P, client_secret_P, tenantP);
     const fileP = "./applicationsP.yaml";
@@ -41,12 +45,17 @@ async function addApplication(appInputFile, a_token, environment) {
     const appName = input.Applications[i].name
     const replyURLs = input.Applications[i].replyURLs
     const owners = input.Applications[i].owners
+    const displayName = input.Applications[i].displayName
+    const discoveryURL = input.Applications[i].discoveryURL
 
     var passwd = generatePassword(30, false);
-    let returnObj  = await callGraphAppCreate(a_token, appName, replyURLs, passwd);
+    var cert = certificateGenerator.getCert(appName, environment);
+    var encKey = cert.pemCert_b64;
+    var privKey = cert.pemPrivKey_b64;
+    let returnObj  = await callGraphAppCreate(a_token, appName, replyURLs, passwd, encKey);
     let objectId = returnObj;
     if (returnObj.appId != null) {
-      addAppToVault(environment, appName, returnObj.appId, passwd);
+      addAppToVault(environment, appName, returnObj.appId, passwd, displayName, discoveryURL, privKey);
       objectId = returnObj.id;
     }   
     for (var j = 0; j < owners.length; j++)
@@ -57,7 +66,7 @@ async function addApplication(appInputFile, a_token, environment) {
   //2. oppdater app med acceptmappedclaims = true
 }
 
-async function callGraphAppCreate(access_token, display_name, redirect_urls, passwd) {
+async function callGraphAppCreate(access_token, display_name, redirect_urls, passwd, encKey) {
   let object_id = await getAppObjectId(display_name, access_token);
   console.log("oid: " + object_id);
 
@@ -72,8 +81,10 @@ async function callGraphAppCreate(access_token, display_name, redirect_urls, pas
     http_method = 'PATCH';
     graph_url = graph_url + '/' + object_id;
   }
-  console.log("callGraphAppCreate " + http_method);
-  console.log("callGraphAppCreate " + graph_url);
+  console.log("callGraphAppCreate1 " + http_method);
+  console.log("callGraphAppCreate2 " + graph_url);
+
+  //var enckey = certificateGenerator.getCert().enckey;
 
   var options = {
     method: http_method,
@@ -87,7 +98,7 @@ async function callGraphAppCreate(access_token, display_name, redirect_urls, pas
       web: {
         implicitGrantSettings: {
           "enableIdTokenIssuance": true,
-          "enableAccessTokenIssuance": true
+          "enableAccessTokenIssuance": false
         },
         "logoutUrl": "",
         "redirectUris": redirect_urls
@@ -97,6 +108,20 @@ async function callGraphAppCreate(access_token, display_name, redirect_urls, pas
           "endDateTime": nowPlus2Years.toISOString(),
           "startDateTime": now.toISOString(),
           "secretText": passwd
+        }
+      ],
+      keyCredentials: [
+        {
+          //"customKeyIdentifier": "303D36DDD6AAAD42821C52DEAB6335C3B402710A",
+          //"customKeyIdentifier": "303D36DDD6AAAD42821C52DEAB6335C3B402710B",
+          //"endDateTime": "2020-05-27T11:49:45Z",
+          //"keyId": "054268b0-97c8-4819-9162-9c20f8fad052",
+          //"keyId": "054268b0-97c8-4819-9162-9c20f8fad053",
+          //"startDateTime": "2019-05-28T11:49:45Z",
+          "type": "AsymmetricX509Cert",
+          "usage": "Verify",
+          "key": encKey,
+          //"displayName": "C=SE"
         }
       ],
       //setter tilganger for appen
@@ -116,8 +141,8 @@ async function callGraphAppCreate(access_token, display_name, redirect_urls, pas
   };
   return new Promise(function (resolve, reject) {
     request(options, function (error, response, body) {
-      console.log("callGraphAppCreate: " + response.statusCode);
-      console.log("callGraphAppCreate: " + response);
+      console.log("callGraphAppCreate3: " + response.statusCode);
+      console.log("callGraphAppCreate4: " + body);
       if (error) {
         reject(error);
       } else {
@@ -204,7 +229,7 @@ function getUserObjectId(userPrincipalName, access_token) {
   };
   return new Promise(function (resolve, reject) {
     request(options, function (error, response, body) {
-      console.log("getUserObjectId responcecode: " + response.statusCode);
+      console.log("getUserObjectId responsecode: " + response.statusCode);
       if (error) {
         reject(error);
       } else {
@@ -248,8 +273,10 @@ function getAccessToken(client_id, client_secret, tenant) {
   })
 }
 
-function addAppToVault(environment, display_name, clientId, passwd){
-  vaultClient.write('kv/' + environment+ "/" + display_name, { client_id: clientId, client_secret: passwd })
+function addAppToVault(environment, appName, clientId, passwd, display_name, discoveryURL, privkey){
+  vaultClient.write('azuread/data/' + environment + "/creds/" + appName, {data: { client_id: clientId, client_secret: passwd, client_privkey_b64: privkey }})
+  .catch((err) => console.error(err.message));
+  vaultClient.write('azuread/data/' + environment + "/config/" + appName, {data: { displayName: display_name, discoveryURL: discoveryURL }})
   .catch((err) => console.error(err.message));
 }
 
