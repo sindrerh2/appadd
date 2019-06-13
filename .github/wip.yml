@@ -1,0 +1,6 @@
+locations:
+  - title
+  - label_name
+  - commit_subject
+terms:
+  - Godkjenning
