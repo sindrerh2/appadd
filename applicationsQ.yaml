@@ -1,5 +1,5 @@
 Applications:
-  - name: "app31"
+  - name: "app32"
     displayName: "myAppName app63"
     discoveryURL: "http://localhost:8080/"
     replyURLs:
