@@ -9,6 +9,7 @@
     "fs": "^0.0.1-security",
     "js-base64": "^2.5.1",
     "js-yaml": "^3.13.1",
+    "node-forge": "^0.8.4",
     "node-vault": "^0.9.8",
     "password-generator": "^2.2.0",
     "request": "^2.88.0",
