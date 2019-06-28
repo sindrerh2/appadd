@@ -9,7 +9,7 @@ pipeline {
         role_id = '6c6245db-7990-5efd-e48e-2cbf6f918822'
         secret_id = credentials('6c6245db-7990-5efd-e48e-2cbf6f918822')
     }
-    stages
+    stages {
         stage('Run nodeapp') {
             steps {
                 sh 'node src/addapp.js'
