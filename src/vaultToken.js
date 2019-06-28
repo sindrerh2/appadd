@@ -9,7 +9,8 @@ async function getToken() {
 
     const options = {
         apiVersion: 'v1',
-        endpoint: process.env.VAULT_ADDR
+        endpoint: process.env.VAULT_ADDR,
+        rejectUnauthorized: 'false'
     };
     let login_result = await vault(options).approleLogin({ role_id: process.env.AZURE_IAC_APPROLE_USR, secret_id: process.env.AZURE_IAC_APPROLE_PSW }).catch(err => console.error(err));
     console.log(login_result);
