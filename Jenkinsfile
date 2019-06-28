@@ -6,8 +6,7 @@ pipeline {
         //VAULT_TOKEN = credentials('VAULT_TOKEN')
         proxy = 'http://webproxy-utvikler.nav.no:8088'
         https_proxy = 'http://webproxy-utvikler.nav.no:8088'
-        role_id = '6c6245db-7990-5efd-e48e-2cbf6f918822'
-        secret_id = credentials('6c6245db-7990-5efd-e48e-2cbf6f918822')
+        AZURE_IAC_APPROLE = credentials('azuread_iac_approle')
     }
     stages {
         stage('Run nodeapp') {
