@@ -23,10 +23,9 @@ const IaC_tag = "IaC_appreg";
 const audience = 'https://graph.microsoft.com/';
 const app_uri = 'beta/applications'; // graph-kall mot alle apper i tenant
 const users_uri = 'beta/users'; // graph-kall mot alle users i tenant 
-const vaultClient = mkVaultClient();
 
 async function main() {
-  
+
   let a_tokenQ = await getAccessToken(client_id_Q, client_secret_Q, tenantQ);
   const fileQ = "./applicationsQ.yaml";
 
@@ -55,7 +54,8 @@ async function addApplication(appInputFile, a_token, environment) {
     let returnObj  = await callGraphAppCreate(a_token, appName, replyURLs, passwd, encKey);
     let objectId = returnObj;
     if (returnObj.appId != null) {
-      addAppToVault(environment, appName, returnObj.appId, passwd, displayName, discoveryURL, privKey);
+      const vaultClient = await mkVaultClient();
+      addAppToVault(vaultClient, environment, appName, returnObj.appId, passwd, displayName, discoveryURL, privKey);
       objectId = returnObj.id;
     }   
     for (var j = 0; j < owners.length; j++)
@@ -95,8 +95,7 @@ async function callGraphAppCreate(access_token, display_name, redirect_urls, pas
     json: {
       "displayName": display_name,
       "groupMembershipClaims": "SecurityGroup",
-      web: {
-        implicitGrantSettings: {
+      web: {        implicitGrantSettings: {
           "enableIdTokenIssuance": true,
           "enableAccessTokenIssuance": false
         },
@@ -273,7 +272,7 @@ function getAccessToken(client_id, client_secret, tenant) {
   })
 }
 
-function addAppToVault(environment, appName, clientId, passwd, display_name, discoveryURL, privkey){
+function addAppToVault(vaultClient, environment, appName, clientId, passwd, display_name, discoveryURL, privkey){
   vaultClient.write('azuread/data/' + environment + "/creds/" + appName, {data: { client_id: clientId, client_secret: passwd, client_privkey_b64: privkey }})
   .catch((err) => console.error(err.message));
   vaultClient.write('azuread/data/' + environment + "/config/" + appName, {data: { displayName: display_name, discoveryURL: discoveryURL }})
