@@ -1,4 +1,5 @@
 const vault = require('node-vault');
+require('https').globalAgent.options.ca = require('ssl-root-cas/latest').create();
 
 async function getToken() {
     ['VAULT_ADDR', 'AZURE_IAC_APPROLE_USR', 'AZURE_IAC_APPROLE_PSW'].forEach(env => {
@@ -9,8 +10,7 @@ async function getToken() {
 
     const options = {
         apiVersion: 'v1',
-        endpoint: process.env.VAULT_ADDR,
-        strictSSL: 'false'
+        endpoint: process.env.VAULT_ADDR
     };
     let login_result = await vault(options).approleLogin({ role_id: process.env.AZURE_IAC_APPROLE_USR, secret_id: process.env.AZURE_IAC_APPROLE_PSW }).catch(err => console.error(err));
     //console.log(login_result);
