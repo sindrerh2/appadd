@@ -1,4 +1,4 @@
-FROM circleci/node:11.10.0
+FROM node:8.16-alpine
 
 USER root
 COPY vault.crt /usr/local/share/ca-certificates/
