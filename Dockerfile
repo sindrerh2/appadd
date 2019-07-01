@@ -1,4 +1,4 @@
-FROM node:8.16-alpine
+FROM node:12-alpine
 
 USER root
 COPY vault.crt /usr/local/share/ca-certificates/
