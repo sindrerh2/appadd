@@ -1,8 +1,8 @@
-FROM node:12-alpine
+FROM circleci/node:11.10.0
 
-#USER root
-RUN apk update && apk add ca-certificates && rm -rf /var/cache/apk/*
-ADD vault.pem /usr/local/share/ca-certificates
+USER root
+#RUN apk update && apk add ca-certificates && rm -rf /var/cache/apk/*
+ADD *.pem /usr/local/share/ca-certificates/
 RUN ls -la /usr/local/share/ca-certificates
 RUN update-ca-certificates
 
@@ -10,4 +10,4 @@ RUN update-ca-certificates
 
 ADD . .
 
-RUN export NODE_EXTRA_CA_CERTS=/usr/local/share/ca-certificates/vault.pem; npm ci
+RUN export NODE_EXTRA_CA_CERTS=/usr/local/share/ca-certificates; npm ci
