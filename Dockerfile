@@ -1,4 +1,4 @@
-FROM node:12-alpine
+FROM node:10-alpine
 
 #USER root
 RUN apk update && apk add ca-certificates && rm -rf /var/cache/apk/*
