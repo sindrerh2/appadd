@@ -9,3 +9,4 @@ frontend/src/fonts/
 dockerbuild.sh
 payload.json
 .DS_Store
+.npmrc
