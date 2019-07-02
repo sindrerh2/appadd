@@ -1,4 +1,4 @@
-FROM cirlceci/node:11.10.0
+FROM circleci/node:11.10.0
 
 USER root
 COPY vault.crt /usr/share/local/ca-certificates
