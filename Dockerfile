@@ -1,7 +1,8 @@
-FROM pionl/node-with-openssl:10-alpine
+FROM cirlceci/node:11.10.0
 
 USER root
-COPY vault.crt /etc/ssl/certs/
+COPY vault.crt /usr/share/local/ca-certificates
+RUN update-ca-certificates
 
 #WORKDIR /build
 
