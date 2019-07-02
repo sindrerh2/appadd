@@ -1,10 +1,10 @@
 FROM pionl/node-with-openssl:10-alpine
 
 USER root
-COPY vault.crt /usr/local/share/ca-certificates/
+COPY vault.crt /etc/ssl/certs/
 
 #WORKDIR /build
 
 ADD . .
 
-RUN export NODE_EXTRA_CA_CERTS=/usr/local/share/ca-certificates/vault.crt;npm ci
+RUN npm ci
