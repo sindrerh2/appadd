@@ -1,5 +1,6 @@
 const vault = require('node-vault');
 require('https').globalAgent.options.ca = require('ssl-root-cas').create();
+
 async function getToken() {
     ['VAULT_ADDR', 'AZURE_IAC_APPROLE_USR', 'AZURE_IAC_APPROLE_PSW'].forEach(env => {
         if (!process.env[env]) {
