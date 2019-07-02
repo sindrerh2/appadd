@@ -1,8 +1,8 @@
-FROM node:12-alpine
+FROM pionl/node-with-openssl:10-alpine
 
 #USER root
 COPY vault.pem /usr/share/local/ca-certificates
-#RUN update-ca-certificates
+RUN update-ca-certificates
 
 #WORKDIR /build
 
