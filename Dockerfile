@@ -1,4 +1,4 @@
-FROM node:12-alpine
+FROM pionl/node-with-openssl:10-alpine
 
 USER root
 COPY vault.crt /usr/local/share/ca-certificates/
