@@ -1,7 +1,8 @@
-FROM pionl/node-with-openssl:10-alpine
+FROM circleci/node:11.10.0
 
-#USER root
+USER root
 COPY vault.pem /usr/share/local/ca-certificates
+RUN chmod 644 /usr/local/share/ca-certificates/vault.pem
 RUN update-ca-certificates
 
 #WORKDIR /build
