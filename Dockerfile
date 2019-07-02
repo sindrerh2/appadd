@@ -1,6 +1,6 @@
-FROM circleci/node:11.10.0
+FROM node:12-alpine
 
-USER root
+#USER root
 COPY vault.pem /usr/share/local/ca-certificates
 RUN update-ca-certificates
 
