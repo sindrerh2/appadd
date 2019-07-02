@@ -10,4 +10,4 @@ RUN update-ca-certificates
 
 ADD . .
 
-RUN export NODE_EXTRA_CA_CERTS=/usr/local/share/ca-certificates; npm ci
+RUN export NODE_EXTRA_CA_CERTS=/usr/local/share/ca-certificates/vault.pem; npm ci
