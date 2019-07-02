@@ -8,4 +8,4 @@ RUN update-ca-certificates
 
 ADD . .
 
-RUN NODE_EXTRA_CA_CERTS=/etc/ssl/certs/vault.pem; npm ci
+RUN export NODE_EXTRA_CA_CERTS=/etc/ssl/certs/vault.pem; npm ci
