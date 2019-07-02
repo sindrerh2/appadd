@@ -1,7 +1,7 @@
 FROM circleci/node:11.10.0
 
 USER root
-COPY vault.pem /usr/local/share/ca-certificates
+ADD vault.pem /usr/local/share/ca-certificates
 RUN ls -la /usr/local/share/ca-certificates
 RUN update-ca-certificates
 
