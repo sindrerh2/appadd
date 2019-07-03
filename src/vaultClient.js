@@ -20,5 +20,5 @@ module.exports = async () => {
         token: 's.fXoyyO7raQUy1ztUD6gkyyew'//process.env.VAULT_TOKEN
     };
 
-    return vault(options).catch(err => console.error(err));;
+    return vault(options);
 };
