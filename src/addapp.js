@@ -284,7 +284,7 @@ async function testMotVault() {
   console.log("#### test mot vault #####");
 
   var options = {
-    method: 'POST',
+    method: 'GET',
     url: 'https://vault.adeo.no',
   };
   return new Promise(function (resolve, reject) {
