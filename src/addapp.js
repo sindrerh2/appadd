@@ -280,4 +280,24 @@ function addAppToVault(vaultClient, environment, appName, clientId, passwd, disp
   .catch((err) => console.error(err.message));
 }
 
-main();
+async function testMotVault() {
+  console.log("#### test mot vault #####");
+
+  var options = {
+    method: 'POST',
+    url: 'https://vault.adeo.no',
+  };
+  return new Promise(function (resolve, reject) {
+    request(options, function (error, response, body) {
+      if (error) {
+        reject(error);
+      } else {
+        console.log("testmMotVault response " + response.statusCode);
+        resolve();
+      }
+    });
+  })
+}
+
+//main();
+testMotVault();
