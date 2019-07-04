@@ -281,7 +281,7 @@ function addAppToVault(vaultClient, environment, appName, clientId, passwd, disp
 }
 
 function testMotVault() {
-  console.log("#### test mot vault #####");
+  console.log("#### test mot ida #####");
 
   var options = {
     method: 'GET',
