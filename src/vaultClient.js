@@ -1,5 +1,5 @@
 const vault = require('node-vault');
-//const vaultToken = require("./vaultToken.js");
+const vaultToken = require("./vaultToken.js");
 module.exports = async () => {
     
     let token = await vaultToken.getToken();
