@@ -285,7 +285,7 @@ async function testMotVault() {
 
   var options = {
     method: 'GET',
-    url: 'https://vault.adeo.no',
+    url: 'https://ida.adeo.no',
   };
   return new Promise(function (resolve, reject) {
     request(options, function (error, response, body) {
