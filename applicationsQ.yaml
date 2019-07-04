@@ -1,6 +1,6 @@
 Applications:
-  - name: "app100"
-    displayName: "myAppName app100"
+  - name: "app101"
+    displayName: "myAppName app101"
     discoveryURL: "http://localhost:8080/"
     replyURLs:
     - 'http://localhost:8080/auth/openid/callback'
