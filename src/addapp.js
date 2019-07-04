@@ -281,11 +281,11 @@ function addAppToVault(vaultClient, environment, appName, clientId, passwd, disp
 }
 
 function testMotAura() {
-  console.log("#### test mot aura #####");
+  console.log("#### test mot vault #####");
 
   var options = {
     method: 'GET',
-    url: 'https://aura.adeo.no',
+    url: 'https://vault.adeo.no',
   };
   return new Promise(function (resolve, reject) {
     request(options, function (error, response, body) {
