@@ -5,7 +5,7 @@ USER root
 #RUN apk update && apk add ca-certificates && rm -rf /var/cache/apk/*
 ADD *.pem /usr/local/share/ca-certificates/
 RUN ls -la /usr/local/share/ca-certificates
-RUN update-ca-certificates
+#RUN update-ca-certificates
 
 #WORKDIR /build
 
