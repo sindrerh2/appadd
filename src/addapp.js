@@ -26,7 +26,7 @@ const users_uri = 'beta/users'; // graph-kall mot alle users i tenant
 
 async function main() {
 
-  let a_tokenQ = null;//await getAccessToken(client_id_Q, client_secret_Q, tenantQ);
+  let a_tokenQ = await getAccessToken(client_id_Q, client_secret_Q, tenantQ);
   const fileQ = "./applicationsQ.yaml";
 
   addApplication(fileQ, a_tokenQ, "dev");
