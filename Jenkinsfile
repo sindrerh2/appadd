@@ -7,7 +7,7 @@ pipeline {
         //VAULT_TOKEN = credentials('VAULT_TOKEN')
         proxy = 'http://webproxy-utvikler.nav.no:8088'
         https_proxy = 'http://webproxy-utvikler.nav.no:8088'
-        no_proxy = 'adeo.no'
+        //no_proxy = 'adeo.no'
         AZURE_IAC_APPROLE = credentials('azuread_iac_approle')
     }
     stages {
