@@ -54,7 +54,7 @@ async function addApplication(appInputFile, a_token, environment) {
     //let returnObj  = await callGraphAppCreate(a_token, appName, replyURLs, passwd, encKey);
     //let objectId = returnObj;
     //if (returnObj.appId != null) {
-      console.log("Createing vault client...");
+      console.log("Creating vault client...");
       const vaultClient = await mkVaultClient();
       console.log("...vault client created.");
       //addAppToVault(vaultClient, environment, appName, returnObj.appId, passwd, displayName, discoveryURL, privKey);
