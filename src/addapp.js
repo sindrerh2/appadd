@@ -299,5 +299,5 @@ function testMotAura() {
   })
 }
 
-//main();
-testMotAura();
+main();
+//testMotAura();
