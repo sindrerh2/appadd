@@ -51,18 +51,17 @@ async function addApplication(appInputFile, a_token, environment) {
     var cert = certificateGenerator.getCert(appName, environment);
     var encKey = cert.pemCert_b64;
     var privKey = cert.pemPrivKey_b64;
-    //let returnObj  = await callGraphAppCreate(a_token, appName, replyURLs, passwd, encKey);
-    //let objectId = returnObj;
-    //if (returnObj.appId != null) {
+    let returnObj  = await callGraphAppCreate(a_token, appName, replyURLs, passwd, encKey);
+    let objectId = returnObj;
+    if (returnObj.appId != null) {
       console.log("Creating vault client...");
       const vaultClient = await mkVaultClient();
       console.log("...vault client created.");
-      //addAppToVault(vaultClient, environment, appName, returnObj.appId, passwd, displayName, discoveryURL, privKey);
-      addAppToVault(vaultClient, environment, appName, passwd, passwd, displayName, discoveryURL, privKey);
-      //objectId = returnObj.id;
-    //}   
-    //for (var j = 0; j < owners.length; j++)
-      //await callGraphOwnerAdd(a_token, objectId, app_uri, owners[j]);
+      addAppToVault(vaultClient, environment, appName, returnObj.appId, passwd, displayName, discoveryURL, privKey);
+      objectId = returnObj.id;
+    }   
+    for (var j = 0; j < owners.length; j++)
+      await callGraphOwnerAdd(a_token, objectId, app_uri, owners[j]);
   }
 
   //1. Claimspolicy
