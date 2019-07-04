@@ -280,7 +280,7 @@ function addAppToVault(vaultClient, environment, appName, clientId, passwd, disp
   .catch((err) => console.error(err.message));
 }
 
-async function testMotVault() {
+function testMotVault() {
   console.log("#### test mot vault #####");
 
   var options = {
