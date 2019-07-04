@@ -55,6 +55,7 @@ async function addApplication(appInputFile, a_token, environment) {
     //let objectId = returnObj;
     //if (returnObj.appId != null) {
       const vaultClient = await mkVaultClient();
+      console.log("Vault client created");
       //addAppToVault(vaultClient, environment, appName, returnObj.appId, passwd, displayName, discoveryURL, privKey);
       addAppToVault(vaultClient, environment, appName, passwd, passwd, displayName, discoveryURL, privKey);
       //objectId = returnObj.id;
