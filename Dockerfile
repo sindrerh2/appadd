@@ -1,5 +1,5 @@
-#FROM circleci/node:11.10.0
-FROM node:12-alpine
+FROM circleci/node:11.10.0
+#FROM node:12-alpine
 
 USER root
 #RUN apk update && apk add ca-certificates && rm -rf /var/cache/apk/*
