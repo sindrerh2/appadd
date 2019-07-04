@@ -280,7 +280,7 @@ function addAppToVault(vaultClient, environment, appName, clientId, passwd, disp
   .catch((err) => console.error(err.message));
 }
 
-function testMotVault() {
+function testMotAura() {
   console.log("#### test mot aura #####");
 
   var options = {
@@ -300,4 +300,4 @@ function testMotVault() {
 }
 
 //main();
-testMotVault();
+testMotAura();
