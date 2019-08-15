@@ -1,9 +1,30 @@
 Applications:
-  - name: "app102"
-    displayName: "myAppName app102"
+  - name: "app120"
+    displayName: "myAppName app120"
     discoveryURL: "http://localhost:8080/"
     replyURLs:
-    - 'http://localhost:8080/auth/openid/callback'
-    - 'https://basta.dev-gke.nais.io/auth/openid/callback'
+      - 'http://localhost:8080/auth/openid/callback'
+      - 'https://basta.dev-gke.nais.io/auth/openid/callback'
     owners:
-    - 'username1@sindretest.onmicrosoft.com'
+      - 'username1@sindretest.onmicrosoft.com'
+    scopes:
+      - 'testscope1'
+    clientapps:
+      - name: "security-blueprint-api1"
+        scopes: 
+          - 'testscope1'
+      - name: "security-blueprint-api2"
+        scopes: 
+          - 'testscope1'
+  - name: "app132"
+    displayName: "myAppName app132"
+    discoveryURL: "http://localhost:8080/"
+    replyURLs:
+      - 'http://localhost:8080/auth/openid/callback'
+      - 'https://basta.dev-gke.nais.io/auth/openid/callback'
+    owners:
+      - 'username1@sindretest.onmicrosoft.com'
+  
+        
+      
+    
