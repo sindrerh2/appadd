@@ -8,7 +8,7 @@ jobs:
         id: get-token
         with:
           private-key: ${{ secrets.APPADD_APPKEY }}
-          app-id: ${{ secrets.TEAMID }}
+          app-id: ${{ secrets.APPADD_TEAMID }}
       - run: |
           gh pr view $PR_URL
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
