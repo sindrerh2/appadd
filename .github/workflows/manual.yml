@@ -18,5 +18,5 @@ jobs:
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
         env:
-          GH_TOKEN: ${{ secrets.APPADD_APPKEY }}
+          github_appkey:: ${{ secrets.APPADD_APPKEY }}
           PR_URL: ${{ github.event.pull_request.html_url }}
