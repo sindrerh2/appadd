@@ -1,9 +1,6 @@
 name: GitHub Actions Testing2
 on: [pull_request]
 
-env:
-  PR_URL: ${{ github.event.pull_request.html_url }}
-
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
