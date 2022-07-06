@@ -1,6 +1,10 @@
 name: GitHub Actions Testing2
 on: [pull_request]
 
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  PR_URL: ${{ github.event.pull_request.html_url }}
+
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
@@ -20,9 +24,6 @@ jobs:
         run: |
           echo ${{ github.api.url }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PR_URL: ${{ github.event.pull_request.html_url }}
       - run: |
           echo $GITHUB_API_URL
           echo $PR_URL
