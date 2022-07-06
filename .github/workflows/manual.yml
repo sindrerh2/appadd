@@ -4,6 +4,11 @@ jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
     steps:
+      - uses: navikt/github-app-token-generator@v1
+        id: get-token
+        with:
+          private-key: ${{ secrets.APPADD_APPKEY }}
+          app-id: ${{ secrets.TEAMID }}
       - run: |
           gh pr view $PR_URL
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
@@ -17,3 +22,6 @@ jobs:
         run: |
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
+    env:
+      GITHUB_TOKEN: ${{ steps.get-token.outputs.token }}
+      PR_URL: ${{ github.event.pull_request.html_url }}
