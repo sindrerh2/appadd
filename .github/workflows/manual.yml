@@ -1,9 +1,13 @@
-name: GitHub Actions Test
-on: [push]
+name: GitHub Actions Testing2
+on: [pull_request]
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  PR_URL: ${{ github.event.pull_request.html_url }}
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
     steps:
+      - run: env
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
       - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
@@ -14,4 +18,11 @@ jobs:
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
+      - name: Print api
+        run: |
+          echo ${{ github.api.url }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
+      - run: |
+          echo $GITHUB_API_URL
+          echo $PR_URL
+          gh pr diff $PR_URL
