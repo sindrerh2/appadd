@@ -1,5 +1,6 @@
 name: GitHub Actions Testing2
-on: [push]
+  pull_request:
+    types: [opened, synchronize, reopened, edited, ready_for_review]
 
 env:
   PR_URL: ${{ github.event.pull_request.html_url }}
@@ -21,10 +22,11 @@ jobs:
           ls ${{ github.workspace }}
       - name: Print api
         run: |
-          echo ${{ github.api.url }}
+          echo $github.api.url
       - run: echo "🍏 This job's status is ${{ job.status }}."
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_URL: ${{ github.event.pull_request.html_url }}
       - run: |
           echo $GITHUB_API_URL
+          echo $PR_URL
