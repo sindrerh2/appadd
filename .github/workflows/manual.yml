@@ -19,9 +19,9 @@ jobs:
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
-      - name: Print workspace
+      - name: Print api
         run: |
-          echo ${{ github.workspace }}
+          echo ${{ github.api }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
