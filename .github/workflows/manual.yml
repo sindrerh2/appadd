@@ -21,7 +21,7 @@ jobs:
           ls ${{ github.workspace }}
       - name: Print api
         run: |
-          echo ${{ github.api }}
+          echo ${{ github.api.url }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
