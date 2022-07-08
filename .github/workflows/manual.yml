@@ -37,14 +37,7 @@ jobs:
         if: contains(env.GIT_PR_DIFF, '0000-level1')
         echo "::set-output name=level1::true"
         run: echo true
-      - name: level2
-        if: contains(env.GIT_PR_DIFF, '0000-level2')
-        echo "::set-output name=level2::true"
-        run: echo true
-      - name: level3
-        if: contains(env.GIT_PR_DIFF, '0000-level3')
-        echo "::set-output name=level3::true"
-        run: echo true
+
 
   job2:
     needs: job1
