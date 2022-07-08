@@ -33,7 +33,7 @@ jobs:
           GIT_PR_DIFF=$(gh pr diff $PR_URL)
           echo "::set-output name=sensitive::false"
       - name: diff2
-        if: contains($(gh pr diff $PR_URL), 'automatically')
+        if: contains('automatically fdsfsdfsdfs', 'automatically')
         run: echo true
 
   job2:
