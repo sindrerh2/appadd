@@ -47,7 +47,7 @@ jobs:
         source grupper1.txt
         for i in ${grupper1_list[@]}
         do
-           echo '$i'
+#           echo '$i'
         done
 #      if: contains(env.GIT_PR_DIFF, '+0000-level1')
 #      run: |
