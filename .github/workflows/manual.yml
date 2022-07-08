@@ -25,6 +25,7 @@ jobs:
         run: |
           echo ${{ github.api.url }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
+      - run: echo "::set-output name=sensitive::true"
   job2:
     needs: job1
     name: Check diffs in PR
@@ -36,3 +37,4 @@ jobs:
         GIT_PR_DIFF=$(gh pr diff $PR_URL)
         echo "---------------"
         echo $GIT_PR_DIFF
+        echo ${{ needs.job1.sensitve }}
