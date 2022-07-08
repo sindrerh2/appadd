@@ -31,8 +31,11 @@ jobs:
         id: diff
         run: |
           GIT_PR_DIFF=$(gh pr diff $PR_URL)
+          echo "::set-output name=sensitive::false"
+      - name: diff2
         if: contains($GIT_PR_DIFF, 'automatically')
-          run: echo "::set-output name=sensitive::false"
+        run: echo true
+
   job2:
     needs: job1
     name: Check diffs in PR
