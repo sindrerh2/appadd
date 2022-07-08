@@ -29,8 +29,8 @@ jobs:
       - run: echo "🍏 This job's status is ${{ job.status }}."
       - name: diffs
         id: diff
-         run: |
-           echo "::set-output name=sensitive::true"
+        run: |
+         echo "::set-output name=sensitive::true"
   job2:
     needs: job1
     name: Check diffs in PR
