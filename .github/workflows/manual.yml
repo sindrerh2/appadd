@@ -43,12 +43,12 @@ jobs:
           GIT_PR_DIFF=$(gh pr diff $PR_URL)
           echo "---------------"
           echo $GIT_PR_DIFF
-        - name: hmm
-          if: ${{ needs.job1.outputs.sensitve == 'true' }}
-          run: echo true
-        - name: hmm2
-          if: ${{ needs.job1.outputs.sensitve == 'false' }}
-          run: echo false
+      - name: hmm
+        if: ${{ needs.job1.outputs.sensitve == 'true' }}
+        run: echo true
+      - name: hmm2
+        if: ${{ needs.job1.outputs.sensitve == 'false' }}
+        run: echo false
 
 
 
