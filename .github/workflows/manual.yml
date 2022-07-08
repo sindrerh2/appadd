@@ -49,8 +49,9 @@ jobs:
       run: echo true
     - name: hmm2
       if: ${{ needs.job1.outputs.sensitive == 'false' }}
-      run: echo false
-      run: echo $GIT_PR_DIFF
+      run: |
+        echo false
+        echo $GIT_PR_DIFF
 
 
 
