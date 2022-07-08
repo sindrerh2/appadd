@@ -36,6 +36,8 @@ jobs:
       level2: ${{ steps.diff2.outputs.level2 }}
       level3: ${{ steps.diff3.outputs.level3 }}
     steps:
+    - name: Check out repository code
+      uses: actions/checkout@v3
     - name: diffs
       run: |
         echo "GIT_PR_DIFF=$(echo $(gh pr diff $PR_URL))" >> $GITHUB_ENV
