@@ -36,19 +36,14 @@ jobs:
     name: Check diffs in PR
     runs-on: ubuntu-latest
     steps:
+    - run: echo ${{needs.job1.outputs.sensitve}}
       - name: Print api
         run: |
           echo $GITHUB_API_URL
           echo $PR_URL
           GIT_PR_DIFF=$(gh pr diff $PR_URL)
           echo "---------------"
-          echo $GIT_PR_DIFF
-      - name: hmm
-        if: ${{ needs.job1.outputs.sensitve == 'true' }}
-        run: echo true
-      - name: hmm2
-        if: ${{ needs.job1.outputs.sensitve == 'false' }}
-        run: echo false
+#          echo $GIT_PR_DIFF
 
 
 
