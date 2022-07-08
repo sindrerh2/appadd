@@ -30,7 +30,7 @@ jobs:
       - name: diffs
         id: diff
         run: |
-         echo "::set-output name=sensitive::true"
+         echo "::set-output name=sensitive::false"
   job2:
     needs: job1
     name: Check diffs in PR
