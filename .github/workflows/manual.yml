@@ -48,10 +48,7 @@ jobs:
         IFS="
         "
         for F in $(cat grupper1.txt) ; do
-          echo $F
-          echo $GIT_PR_DIFF
-          echo $env.GIT_PR_DIFF
-          echo env.GIT_PR_DIFF  
+          echo $F 
           if [[ "$GIT_PR_DIFF" == *"$F"* ]]; then
             echo "It's there."
           fi
