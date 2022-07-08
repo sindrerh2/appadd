@@ -30,10 +30,10 @@ jobs:
       - name: diffs
         id: diff
         run: |
-          GIT_PR_DIFF=$(gh pr diff $PR_URL)
+          echo "GIT_PR_DIFF=$(gh pr diff $PR_URL)" >> $GITHUB_ENV
           echo "::set-output name=sensitive::false"
       - name: diff2
-        if: contains('automaticall', 'automatically')
+        if: contains(env.GIT_PR_DIFF, 'automatically')
         run: echo true
 
   job2:
