@@ -48,8 +48,8 @@ jobs:
         source grupper1.txt
         for i in "${grupper1_list[@]}"
         do
-              echo "${grupper1_list[counter]}"
-              let counter=counter+1
+          echo "${grupper1_list[counter]}"
+          let counter=counter+1
         done
 #      if: contains(env.GIT_PR_DIFF, '+0000-level1')
 #      run: |
