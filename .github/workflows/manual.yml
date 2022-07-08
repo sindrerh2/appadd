@@ -6,8 +6,13 @@ env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   PR_URL: ${{ github.event.pull_request.html_url }}
 jobs:
-  Explore-GitHub-Actions:
+  job1:
+    name: Explore-GitHub-Actions
     runs-on: ubuntu-latest
+    outputs:
+      level1: ${{ steps.diff.outputs.level1 }}
+      level2: ${{ steps.diff2.outputs.level2 }}
+      level3: ${{ steps.diff3.outputs.level3 }}
     steps:
       - run: env
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
@@ -24,9 +29,49 @@ jobs:
         run: |
           echo ${{ github.api.url }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
-      - run: |
-          echo $GITHUB_API_URL
-          echo $PR_URL
-          GIT_PR_DIFF=$(gh pr diff $PR_URL)
-          echo "---------------"
-          echo $GIT_PR_DIFF
+      - name: diffs
+        run: |
+          echo "GIT_PR_DIFF=$(echo $(gh pr diff $PR_URL))" >> $GITHUB_ENV
+      - name: level1
+        id: diff
+        if: contains(env.GIT_PR_DIFF, '0000-level1')
+        run: |
+          echo "::set-output name=level1::true"
+          echo true
+      - name: level2
+        id: diff2
+        if: contains(env.GIT_PR_DIFF, '0000-level2')
+        run: |
+          echo "::set-output name=level2::true"
+          echo true
+      - name: level3
+        id: diff3
+        if: contains(env.GIT_PR_DIFF, '0000-level3')
+        run: |
+          echo "::set-output name=level3::true"
+          echo true
+
+  job2:
+    needs: job1
+    name: Check diffs in PR
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo ${{needs.job1.outputs.level1}} ${{needs.job1.outputs.level2}} ${{needs.job1.outputs.level3}}
+    - name: Print api
+      run: |
+        echo $GITHUB_API_URL
+        echo $PR_URL
+        GIT_PR_DIFF=$(gh pr diff $PR_URL)
+        echo "---------------"
+#        echo $GIT_PR_DIFF
+    - name: hmm
+      if: ${{ needs.job1.outputs.level1 == 'true' }}
+      run: echo true
+    - name: hmm2
+      if: ${{ needs.job1.outputs.level1 == 'false' }}
+      run: |
+        echo false
+        echo $GIT_PR_DIFF
+
+
+
