@@ -27,7 +27,7 @@ jobs:
       - run: echo "🍏 This job's status is ${{ job.status }}."
   job2:
     needs: job1
-    Check diff in PR:
+    Check diffs in PR:
     runs-on: ubuntu-latest
     steps:
     - run: |
