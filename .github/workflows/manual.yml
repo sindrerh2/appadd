@@ -43,7 +43,6 @@ jobs:
           echo $PR_URL
           GIT_PR_DIFF=$(gh pr diff $PR_URL)
           echo "---------------"
-#          echo $GIT_PR_DIFF
 
 
 
