@@ -6,54 +6,59 @@ env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   PR_URL: ${{ github.event.pull_request.html_url }}
 jobs:
-  job1:
-    name: Explore-GitHub-Actions
+#  job1:
+#    name: Explore-GitHub-Actions
+#    runs-on: ubuntu-latest
+#    steps:
+#      - run: env
+#      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+#      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+#      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+#      - name: Check out repository code
+#        uses: actions/checkout@v3
+#      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+#      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
+#      - name: List files in the repository
+#        run: |
+#          ls ${{ github.workspace }}
+#      - name: Print api
+#        run: |
+#          echo ${{ github.api.url }}
+#      - run: echo "🍏 This job's status is ${{ job.status }}."
+
+  job2:
+    name: Check diffs in PR
     runs-on: ubuntu-latest
     outputs:
       level1: ${{ steps.diff.outputs.level1 }}
       level2: ${{ steps.diff2.outputs.level2 }}
       level3: ${{ steps.diff3.outputs.level3 }}
     steps:
-      - run: env
-      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
-      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-      - name: Check out repository code
-        uses: actions/checkout@v3
-      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
-      - name: List files in the repository
-        run: |
-          ls ${{ github.workspace }}
-      - name: Print api
-        run: |
-          echo ${{ github.api.url }}
-      - run: echo "🍏 This job's status is ${{ job.status }}."
-      - name: diffs
-        run: |
-          echo "GIT_PR_DIFF=$(echo $(gh pr diff $PR_URL))" >> $GITHUB_ENV
-      - name: level1
-#        id: diff
-        if: contains(env.GIT_PR_DIFF, '+0000-level1')
-        run: |
-          echo "::set-output name=level1::true"
-          echo true
-      - name: level2
-#        id: diff2
-        if: contains(env.GIT_PR_DIFF, '+0000-level2')
-        run: |
-          echo "::set-output name=level2::true"
-          echo true
-      - name: level3
-#        id: diff3
-        if: contains(env.GIT_PR_DIFF, '+0000-level3')
-        run: |
-          echo "::set-output name=level3::true"
-          echo true
+    - name: diffs
+      run: |
+        echo "GIT_PR_DIFF=$(echo $(gh pr diff $PR_URL))" >> $GITHUB_ENV
+    - name: level1
+      id: diff
+      if: contains(env.GIT_PR_DIFF, '+0000-level1')
+      run: |
+        echo "::set-output name=level1::true"
+        echo true
+    - name: level2
+      id: diff2
+      if: contains(env.GIT_PR_DIFF, '+0000-level2')
+      run: |
+        echo "::set-output name=level2::true"
+        echo true
+    - name: level3
+      id: diff3
+      if: contains(env.GIT_PR_DIFF, '+0000-level3')
+      run: |
+        echo "::set-output name=level3::true"
+        echo true
 
-  job2:
-    needs: job1
-    name: Check diffs in PR
+  job3:
+    needs: job2
+    name: Actions based on diff in PR
     runs-on: ubuntu-latest
     steps:
     - run: echo ${{needs.job1.outputs.level1}} ${{needs.job1.outputs.level2}} ${{needs.job1.outputs.level3}}
@@ -65,10 +70,10 @@ jobs:
         echo "---------------"
 #        echo $GIT_PR_DIFF
     - name: hmm
-      if: ${{ needs.job1.outputs.level1 == 'true' }}
+      if: ${{ needs.job2.outputs.level1 == 'true' }}
       run: echo true
     - name: hmm2
-      if: ${{ needs.job1.outputs.level1 == 'false' }}
+      if: ${{ needs.job2.outputs.level1 == 'false' }}
       run: |
         echo false
         echo $GIT_PR_DIFF
