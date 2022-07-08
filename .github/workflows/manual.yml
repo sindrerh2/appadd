@@ -10,7 +10,9 @@ jobs:
     name: Explore-GitHub-Actions
     runs-on: ubuntu-latest
     outputs:
-      sensitive: ${{ steps.diff.outputs.sensitive }}
+      level1: ${{ steps.diff.outputs.level1 }}
+      level2: ${{ steps.diff.outputs.level2 }}
+      level3: ${{ steps.diff.outputs.level3 }}
     steps:
       - run: env
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
@@ -31,9 +33,17 @@ jobs:
         id: diff
         run: |
           echo "GIT_PR_DIFF=$(echo $(gh pr diff $PR_URL))" >> $GITHUB_ENV
-          echo "::set-output name=sensitive::false"
-      - name: diff2
-        if: contains(env.GIT_PR_DIFF, 'automatically')
+      - name: level1
+        if: contains(env.GIT_PR_DIFF, '0000-level1')
+        echo "::set-output name=level1::true"
+        run: echo true
+      - name: level2
+        if: contains(env.GIT_PR_DIFF, '0000-level2')
+        echo "::set-output name=level2::true"
+        run: echo true
+      - name: level3
+        if: contains(env.GIT_PR_DIFF, '0000-level3')
+        echo "::set-output name=level3::true"
         run: echo true
 
   job2:
@@ -41,7 +51,7 @@ jobs:
     name: Check diffs in PR
     runs-on: ubuntu-latest
     steps:
-    - run: echo ${{needs.job1.outputs.sensitive}}
+    - run: echo ${{needs.job1.outputs.level1}} ${{needs.job1.outputs.level2}} ${{needs.job1.outputs.level3}}
     - name: Print api
       run: |
         echo $GITHUB_API_URL
@@ -50,10 +60,10 @@ jobs:
         echo "---------------"
 #        echo $GIT_PR_DIFF
     - name: hmm
-      if: ${{ needs.job1.outputs.sensitive == 'true' }}
+      if: ${{ needs.job1.outputs.level1 == 'true' }}
       run: echo true
     - name: hmm2
-      if: ${{ needs.job1.outputs.sensitive == 'false' }}
+      if: ${{ needs.job1.outputs.level1 == 'false' }}
       run: |
         echo false
         echo $GIT_PR_DIFF
