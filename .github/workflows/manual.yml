@@ -1,6 +1,8 @@
 name: GitHub Actions Testing2
 on:
   pull_request:
+    branches:
+      - master
   workflow_dispatch:
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -39,10 +41,16 @@ jobs:
         echo "GIT_PR_DIFF=$(echo $(gh pr diff $PR_URL))" >> $GITHUB_ENV
     - name: level1
       id: diff
-      if: contains(env.GIT_PR_DIFF, '+0000-level1')
       run: |
-        echo "::set-output name=level1::true"
-        echo true
+        source grupper1.txt
+        for i in ${grupper1_list[@]}
+        do
+           echo $i
+        done
+#      if: contains(env.GIT_PR_DIFF, '+0000-level1')
+#      run: |
+#        echo "::set-output name=level1::true"
+#        echo true
     - name: level2
       id: diff2
       if: contains(env.GIT_PR_DIFF, '+0000-level2')
@@ -61,7 +69,7 @@ jobs:
     name: Actions based on diff in PR
     runs-on: ubuntu-latest
     steps:
-    - run: echo ${{needs.job1.outputs.level1}} ${{needs.job1.outputs.level2}} ${{needs.job1.outputs.level3}}
+    - run: echo ${{needs.job2.outputs.level1}} ${{needs.job2.outputs.level2}} ${{needs.job2.outputs.level3}}
     - name: Print api
       run: |
         echo $GITHUB_API_URL
