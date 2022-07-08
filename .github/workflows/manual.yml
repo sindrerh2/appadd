@@ -36,7 +36,7 @@ jobs:
     name: Check diffs in PR
     runs-on: ubuntu-latest
     steps:
-    - run: echo ${{needs.job1.outputs.sensitve}}
+    - run: echo ${{needs.job1.outputs.sensitive}}
       - name: Print api
         run: |
           echo $GITHUB_API_URL
