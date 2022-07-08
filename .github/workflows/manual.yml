@@ -10,7 +10,7 @@ jobs:
     name: Explore-GitHub-Actions
     runs-on: ubuntu-latest
     outputs:
-      destructive_changes: ${{ steps.diff.outputs.sensitive }}
+      sensitive: ${{ steps.diff.outputs.sensitive }}
     steps:
       - run: env
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
@@ -27,7 +27,7 @@ jobs:
         run: |
           echo ${{ github.api.url }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
-      - name diffs
+      - name: diffs
         id: diff
          run: |
            echo "::set-output name=sensitive::true"
