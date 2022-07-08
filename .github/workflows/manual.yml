@@ -49,6 +49,9 @@ jobs:
         "
         for F in $(cat grupper1.txt) ; do
           echo $F
+          if [[ env.GIT_PR_DIFF == *"$F"* ]]; then
+            echo "It's there."
+          fi
         done
         IFS=$OLDIFS
 #      if: contains(env.GIT_PR_DIFF, '+0000-level1')
