@@ -7,7 +7,7 @@ env:
   PR_URL: ${{ github.event.pull_request.html_url }}
 jobs:
   job1:
-    name: Explore-GitHub-Actions:
+    name: Explore-GitHub-Actions
     runs-on: ubuntu-latest
     steps:
       - run: env
@@ -27,7 +27,7 @@ jobs:
       - run: echo "🍏 This job's status is ${{ job.status }}."
   job2:
     needs: job1
-    name: Check diffs in PR:
+    name: Check diffs in PR
     runs-on: ubuntu-latest
     steps:
     - run: |
