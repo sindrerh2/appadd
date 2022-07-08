@@ -45,7 +45,9 @@ jobs:
       - name: hmm
         if: ${{ needs.job1.outputs.sensitve == 'true' }}
         run: echo true
+      - name: hmm2
         if: ${{ needs.job1.outputs.sensitve == 'false' }}
         run: echo false
+
 
 
