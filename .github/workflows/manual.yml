@@ -28,11 +28,11 @@ jobs:
   job2:
     needs: job1
     Check diff in PR:
-           runs-on: ubuntu-latest
-           steps:
-            - run: |
-                echo $GITHUB_API_URL
-                echo $PR_URL
-                GIT_PR_DIFF=$(gh pr diff $PR_URL)
-                echo "---------------"
-                echo $GIT_PR_DIFF
+      runs-on: ubuntu-latest
+      steps:
+      - run: |
+          echo $GITHUB_API_URL
+          echo $PR_URL
+          GIT_PR_DIFF=$(gh pr diff $PR_URL)
+          echo "---------------"
+          echo $GIT_PR_DIFF
