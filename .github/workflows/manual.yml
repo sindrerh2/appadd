@@ -11,8 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       level1: ${{ steps.diff.outputs.level1 }}
-      level2: ${{ steps.diff.outputs.level2 }}
-      level3: ${{ steps.diff.outputs.level3 }}
+      level2: ${{ steps.diff2.outputs.level2 }}
+      level3: ${{ steps.diff3.outputs.level3 }}
     steps:
       - run: env
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
@@ -30,14 +30,23 @@ jobs:
           echo ${{ github.api.url }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
       - name: diffs
-        id: diff
         run: |
           echo "GIT_PR_DIFF=$(echo $(gh pr diff $PR_URL))" >> $GITHUB_ENV
       - name: level1
+        id: diff
         if: contains(env.GIT_PR_DIFF, '0000-level1')
         echo "::set-output name=level1::true"
         run: echo true
-
+      - name: level2
+        id: diff2
+        if: contains(env.GIT_PR_DIFF, '0000-level2')
+        echo "::set-output name=level2::true"
+        run: echo true
+      - name: level3
+        id: diff3
+        if: contains(env.GIT_PR_DIFF, '0000-level3')
+        echo "::set-output name=level3::true"
+        run: echo true
 
   job2:
     needs: job1
