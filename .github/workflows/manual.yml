@@ -42,4 +42,4 @@ jobs:
         GIT_PR_DIFF=$(gh pr diff $PR_URL)
         echo "---------------"
         echo $GIT_PR_DIFF
-        ehco ${{ needs.job1.outputs.sensitve }}
+        echo ${{ needs.job1.outputs.sensitve }}
