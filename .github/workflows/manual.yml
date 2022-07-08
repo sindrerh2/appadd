@@ -9,6 +9,8 @@ jobs:
   job1:
     name: Explore-GitHub-Actions
     runs-on: ubuntu-latest
+    outputs:
+      destructive_changes: ${{ steps.diff.outputs.sensitive }}
     steps:
       - run: env
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
@@ -25,7 +27,10 @@ jobs:
         run: |
           echo ${{ github.api.url }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
-      - run: echo "::set-output name=sensitive::true"
+      - name diffs
+        id: diff
+         run: |
+           echo "::set-output name=sensitive::true"
   job2:
     needs: job1
     name: Check diffs in PR
@@ -37,4 +42,4 @@ jobs:
         GIT_PR_DIFF=$(gh pr diff $PR_URL)
         echo "---------------"
         echo $GIT_PR_DIFF
-        echo ${{ needs.job1.sensitve }}
+        ehco ${{ needs.job1.outputs.sensitve }}
