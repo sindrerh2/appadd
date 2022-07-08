@@ -49,7 +49,10 @@ jobs:
         "
         for F in $(cat grupper1.txt) ; do
           echo $F
-          if [[ "$env.GIT_PR_DIFF" == *"$F"* ]]; then
+          echo $GIT_PR_DIFF
+          echo $env.GIT_PR_DIFF
+          echo env.GIT_PR_DIFF  
+          if [[ "$GIT_PR_DIFF" == *"$F"* ]]; then
             echo "It's there."
           fi
         done
