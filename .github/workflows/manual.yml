@@ -105,14 +105,19 @@ jobs:
         GIT_PR_DIFF=$(gh pr diff $PR_URL)
         echo "---------------"
 #        echo $GIT_PR_DIFF
-    - name: hmm
+    - name: Notify level1 group
       if: ${{ needs.job2.outputs.level1 == 'true' }}
       run: echo true
-    - name: hmm2
-      if: ${{ needs.job2.outputs.level1 == 'false' }}
+    - name: Notify level2 group
+      if: |
+        ${{ needs.job2.outputs.level2 == 'true' &&
+          needs.job2.outputs.level1 != 'true' }}
       run: |
-        echo false
-        echo $GIT_PR_DIFF
+        echo true level2
+    - name: Notify level3 group
+      if: ${{ needs.job2.outputs.level2 == 'true' }}
+      run: |
+        echo true
 
 
 
