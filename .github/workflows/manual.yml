@@ -123,6 +123,16 @@ jobs:
         needs.job2.outputs.level1 != 'true'
       run: |
         echo true level3
+
+    - name: get-members
+      uses: garnertb/get-team-members@v1
+      with:
+        org: navikt
+        team_slug: github-service-user-approver
+        token: ${{ secrets.GITHUB_TOKEN }}
+    - run: "echo ${{ steps.get-members.outputs.members }}"
+      shell: bash
+
     - name: Assign reviewers
       uses: murs313/request-review@v1.0
       with:
