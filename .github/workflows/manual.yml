@@ -126,7 +126,7 @@ jobs:
     - name: Assign reviewers
       uses: murs313/request-review@v1.0
       with:
-        reviewers: ${{ env.GIT_REVIEWERS }}
+        reviewers: ${{ env.GIT_REVIEWERS }} sindrerh2
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         pull-request-number: ${{ env.PR_NUMBER }}
 
