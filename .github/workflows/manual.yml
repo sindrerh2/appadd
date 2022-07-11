@@ -125,7 +125,7 @@ jobs:
     - name: Assign reviewers
       uses: TheoNoyau/assign-reviewers-action@v1.0
       with:
-        who-to-assign: $GIT_REVIEWERS
+        who-to-assign: ${{ GIT_REVIEWERS }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
