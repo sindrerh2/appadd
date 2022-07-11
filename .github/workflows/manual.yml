@@ -98,7 +98,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - run: echo ${{needs.job2.outputs.level1}} ${{needs.job2.outputs.level2}} ${{needs.job2.outputs.level3}}
-    - name: Print api
+    - name: Print PR info
       run: |
         echo $GITHUB_API_URL
         echo $PR_URL
@@ -114,12 +114,19 @@ jobs:
         needs.job2.outputs.level1 != 'true'
       run: |
         echo true level2
+        echo "::set-output name=assign_to_group::sindrerh2"
+        echo "GIT_REVIEWERS=$(echo sindrerh)" >> $GITHUB_ENV
     - name: Notify level3 group
       if: |
         needs.job2.outputs.level2 != 'true' &&
         needs.job2.outputs.level1 != 'true'
       run: |
         echo true level3
+    - name: Assign reviewers
+      uses: TheoNoyau/assign-reviewers-action@v1.0
+      with:
+        who-to-assign: echo $GIT_REVIEWERS
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
 
