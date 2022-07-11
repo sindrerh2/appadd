@@ -116,7 +116,7 @@ jobs:
       run: |
         echo true level2
         echo "::set-output name=assign_to_group::sindrerh"
-        echo "GIT_REVIEWERS=$(echo sindrerh2)" >> $GITHUB_ENV
+        echo "GIT_REVIEWERS=$(echo @navikt/github-service-user-approver)" >> $GITHUB_ENV
     - name: Notify level3 group
       if: |
         needs.job2.outputs.level2 != 'true' &&
