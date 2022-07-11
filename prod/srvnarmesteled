@@ -1,0 +1,14 @@
+[
+ {
+  "id":"srvnarmesteled",
+    "groups": [
+      "0000-GA-pdp-user",
+      "RA_Allow_To_Sign_Consumer",
+      "KP-helse-narmesteLeder-v1",
+      "KC-helse-narmesteLeder-v1",
+      "0000-GA-TEMA_SYM",
+      "0000-GA-Aa-register-konsument",
+      "0000-GA-Aa-register-System_Les"
+    ]
+  }
+]

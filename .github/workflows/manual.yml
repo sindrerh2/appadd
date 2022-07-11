@@ -3,6 +3,9 @@ on:
   pull_request:
     branches:
       - master
+    paths:
+      - 'nonprod/**'
+      - 'prod/**'
   workflow_dispatch:
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
