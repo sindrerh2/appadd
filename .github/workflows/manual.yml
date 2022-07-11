@@ -51,7 +51,7 @@ jobs:
         IFS="
         "
         for F in $(cat grouplevels/level1.txt) ; do
-      # Check for this format in PR diff (groups added): '+ "<Group>"'
+# Check for this format in PR diff (groups added): '+ "<Group>"'
           F="+ \"$F\""
           echo $F 
           if [[ "$GIT_PR_DIFF" == *"$F"* ]]; then
