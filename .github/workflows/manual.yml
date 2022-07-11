@@ -51,7 +51,8 @@ jobs:
         IFS="
         "
         for F in $(cat grouplevels/level1.txt) ; do
-          F="+$F"
+      # Check for this format in PR diff (groups added): '+ "<Group>"'
+          F="+ \"$F\""
           echo $F 
           if [[ "$GIT_PR_DIFF" == *"$F"* ]]; then
             echo "It's there (1)."
@@ -78,13 +79,12 @@ jobs:
 
     - name: level3
       id: diff3
-      if: contains(env.GIT_PR_DIFF, '+0000-level3')
       run: |
         OLDIFS=$IFS
         IFS="
         "
         for F in $(cat grouplevels/level3.txt) ; do
-          F="+$F"
+          F="+ \"$F\""
           echo $F 
           if [[ "$GIT_PR_DIFF" == *"$F"* ]]; then
             echo "It's there (3)."
