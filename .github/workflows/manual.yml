@@ -130,8 +130,7 @@ jobs:
         org: navikt
         team_slug: github-service-user-approver
         token: ${{ secrets.GITHUB_TOKEN }}
-    - run: "echo ${{ steps.get-members.outputs.members }}"
-      shell: bash
+      run: echo ${{ steps.get-members.outputs.members }}
 
     - name: Assign reviewers
       uses: murs313/request-review@v1.0
