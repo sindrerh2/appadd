@@ -10,6 +10,7 @@ on:
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   PR_URL: ${{ github.event.pull_request.html_url }}
+  PR_NUMBER:  ${{ github.context.payload.pull_request.number }}
 jobs:
 #  job1:
 #    name: Explore-GitHub-Actions
@@ -123,10 +124,11 @@ jobs:
       run: |
         echo true level3
     - name: Assign reviewers
-      uses: TheoNoyau/assign-reviewers-action@v1.0
+      uses: murs313/request-review@v1.0
       with:
-        who-to-assign: ${{ env.GIT_REVIEWERS }}
+        reviewers: ${{ env.GIT_REVIEWERS }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        pull-request-number: ${{ env.PR_NUMBER }}
 
 
 
