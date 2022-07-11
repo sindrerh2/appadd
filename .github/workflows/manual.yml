@@ -51,7 +51,7 @@ jobs:
         IFS="
         "
         for F in $(cat grouplevels/level1.txt) ; do
-          F="+$F"
+          F="+ \"$F\""
           echo $F 
           if [[ "$GIT_PR_DIFF" == *"$F"* ]]; then
             echo "It's there (1)."
@@ -67,7 +67,7 @@ jobs:
         IFS="
         "
         for F in $(cat grouplevels/level2.txt) ; do
-          F="+$F"
+          F="+ \"$F\""
           echo $F 
           if [[ "$GIT_PR_DIFF" == *"$F"* ]]; then
             echo "It's there (2)."
@@ -78,13 +78,12 @@ jobs:
 
     - name: level3
       id: diff3
-      if: contains(env.GIT_PR_DIFF, '+0000-level3')
       run: |
         OLDIFS=$IFS
         IFS="
         "
         for F in $(cat grouplevels/level3.txt) ; do
-          F="+$F"
+          F="+ \"$F\""
           echo $F 
           if [[ "$GIT_PR_DIFF" == *"$F"* ]]; then
             echo "It's there (3)."
@@ -106,14 +105,19 @@ jobs:
         GIT_PR_DIFF=$(gh pr diff $PR_URL)
         echo "---------------"
 #        echo $GIT_PR_DIFF
-    - name: hmm
+    - name: Notify level1 group
       if: ${{ needs.job2.outputs.level1 == 'true' }}
-      run: echo true
-    - name: hmm2
-      if: ${{ needs.job2.outputs.level1 == 'false' }}
+      run: echo true level1
+    - name: Notify level2 group
+      if: |
+        needs.job2.outputs.level2 == 'true' &&
+        needs.job2.outputs.level1 != 'true'
       run: |
-        echo false
-        echo $GIT_PR_DIFF
+        echo true level2
+    - name: Notify level3 group
+      if: ${{ needs.job2.outputs.level3 == 'true' }}
+      run: |
+        echo true
 
 
 
