@@ -1,0 +1,5 @@
+0000-GA-KRR
+0000-GA-pdp-user
+RA_Allow_To_Sign_Consumer
+KP-sporingslogg
+

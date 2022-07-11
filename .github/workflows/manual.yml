@@ -50,10 +50,11 @@ jobs:
         OLDIFS=$IFS
         IFS="
         "
-        for F in $(cat grupper1.txt) ; do
+        for F in $(cat grouplevels/level1.txt) ; do
           echo $F 
           if [[ "$GIT_PR_DIFF" == *"$F"* ]]; then
-            echo "It's there."
+            echo "It's there (1)."
+            echo "::set-output name=level1::true"
           fi
         done
         IFS=$OLDIFS
@@ -63,16 +64,33 @@ jobs:
 #        echo true
     - name: level2
       id: diff2
-      if: contains(env.GIT_PR_DIFF, '+0000-level2')
       run: |
-        echo "::set-output name=level2::true"
-        echo true
+        OLDIFS=$IFS
+        IFS="
+        "
+        for F in $(cat grouplevels/level2.txt) ; do
+          echo $F 
+          if [[ "$GIT_PR_DIFF" == *"$F"* ]]; then
+            echo "It's there (2)."
+            echo "::set-output name=level2::true"
+          fi
+        done
+        IFS=$OLDIFS
     - name: level3
       id: diff3
       if: contains(env.GIT_PR_DIFF, '+0000-level3')
       run: |
-        echo "::set-output name=level3::true"
-        echo true
+        OLDIFS=$IFS
+        IFS="
+        "
+        for F in $(cat grouplevels/level3.txt) ; do
+          echo $F 
+          if [[ "$GIT_PR_DIFF" == *"$F"* ]]; then
+            echo "It's there (3)."
+            echo "::set-output name=level3::true"
+          fi
+        done
+        IFS=$OLDIFS
 
   job3:
     needs: job2
