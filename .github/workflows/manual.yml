@@ -115,9 +115,11 @@ jobs:
       run: |
         echo true level2
     - name: Notify level3 group
-      if: ${{ needs.job2.outputs.level3 == 'true' }}
+      if: |
+        needs.job2.outputs.level2 != 'true' &&
+        needs.job2.outputs.level1 != 'true'
       run: |
-        echo true
+        echo true level3
 
 
 
