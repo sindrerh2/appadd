@@ -51,8 +51,8 @@ jobs:
         IFS="
         "
         for F in $(cat grouplevels/level1.txt) ; do
-          echo $F 
           F="+$F"
+          echo $F 
           if [[ "$GIT_PR_DIFF" == *"$F"* ]]; then
             echo "It's there (1)."
             echo "::set-output name=level1::true"
