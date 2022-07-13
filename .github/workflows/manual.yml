@@ -116,7 +116,7 @@ jobs:
       run: |
         echo true level2
         echo "::set-output name=assign_to_group::sindrerh"
-        echo "GIT_REVIEWERS=$(echo @navikt/github-service-user-approver)" >> $GITHUB_ENV
+        echo "GIT_REVIEWERS=$(echo jksolbakken)" >> $GITHUB_ENV
     - name: Notify level3 group
       if: |
         needs.job2.outputs.level2 != 'true' &&
@@ -138,7 +138,7 @@ jobs:
       uses: murs313/request-review@v1.0
       with:
         reviewers: ${{ env.GIT_REVIEWERS }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.GITHUB_TOKEN }}
         pull-request-number: ${{ env.PR_NUMBER }}
 
 
